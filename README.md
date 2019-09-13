@@ -1,2 +1,4 @@
 # UtahDocketDownloader
-Created to assist the Harvard Law School Access to Justice Lab
+This program downloads the Utah Court System docket, filters only to specified types of cases, and returns them in CSV format.
+
+Requires PDFSharp.
