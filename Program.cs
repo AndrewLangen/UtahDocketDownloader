@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -178,7 +178,11 @@ namespace DebtCollectionDownloader
             {
                 if (IsDebtCollection(stringlist)) //Any other type of action is not saved
                 {
-                    ToReturn.Add(ConvertStringsToEntries(stringlist));
+                    var a = ConvertStringsToEntries(stringlist);
+                    if (!(a is null))
+                    {
+                        ToReturn.Add(a);
+                    }
 
                 }
             }
@@ -261,8 +265,12 @@ namespace DebtCollectionDownloader
             toReturn.Attorney1 = firstpartyattorney[1];
 
             int index = 3;
-            while (!strings[index].Contains("VS.")) index++; // finding the string with the VS. to iterate past the remaining coplaintiffs
-            index++; //moving one past it into the useful range (otherwise the index would be on the line with "VS.")
+            while (!strings[index++].Contains("VS."))  // finding the string with the VS. to iterate past the remaining coplaintiffs
+            {
+                if (index == strings.Count)
+                    return null;
+            }
+            //index++; //moving one past it into the useful range (otherwise the index would be on the line with "VS.")
 
             //As written here, this only reads additional parties if the debtors are pro se
             //This is fine for now, because only pro se defendants are considered here
